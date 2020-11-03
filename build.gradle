@@ -22,4 +22,9 @@ shadowJar {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    compile "com.sparkjava:spark-kotlin:1.0.0-alpha"
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+    testCompile group: 'io.mockk', name: 'mockk', version: '1.10.0'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 }

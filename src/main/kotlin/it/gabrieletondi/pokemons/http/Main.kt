@@ -1,5 +1,11 @@
 package it.gabrieletondi.pokemons.http
 
+import spark.kotlin.ignite
+
 fun main() {
-    println("Up and running!")
+    val http = ignite()
+
+    http.get("/ping") {
+        "pong"
+    }
 }
