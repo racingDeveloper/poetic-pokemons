@@ -8,6 +8,7 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 jar {
@@ -22,7 +23,11 @@ shadowJar {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation 'junit:junit:4.12'
     compile "com.sparkjava:spark-kotlin:1.0.0-alpha"
+    compile group: 'com.github.kittinunf.fuel', name: 'fuel', version: '2.2.3'
+    compile group: 'com.github.kittinunf.fuel', name: 'fuel-jackson', version: '2.2.3'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.11.2'
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
     testCompile group: 'io.mockk', name: 'mockk', version: '1.10.0'
@@ -36,5 +41,24 @@ tasks.test {
 test {
     testLogging {
         events "passed", "skipped", "failed"
+    }
+
+    useJUnitPlatform {
+        excludeTags 'e2e'
+    }
+}
+
+task e2eTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+}
+
+e2eTest {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    useJUnitPlatform {
+        includeTags 'e2e'
     }
 }
