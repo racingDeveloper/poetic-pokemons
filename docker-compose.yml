@@ -1,9 +1,17 @@
 version: "3.7"
 
 services:
-  pokemons:
+  app:
     build: .
     ports:
       - "4567:4567"
+    volumes:
+      - .:/usr/src/pokemons
+
+  test:
+    image: openjdk:14-jdk-slim
+    working_dir: /usr/src/pokemons
+    environment:
+      - GRADLE_USER_HOME=cacheDocker
     volumes:
       - .:/usr/src/pokemons
