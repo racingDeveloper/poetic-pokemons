@@ -9,7 +9,7 @@ import it.gabrieletondi.pokemons.unit.domain.usecase.domain.PokemonCatalogContra
 
 class InMemoryPokemonCatalogTest : PokemonCatalogContractTest() {
     private val knownPokemon = Pokemon(Name("a pokemon"), Description("the description"))
-    
+
     private val catalog = InMemoryPokemonCatalog(
         listOf(
             knownPokemon,
