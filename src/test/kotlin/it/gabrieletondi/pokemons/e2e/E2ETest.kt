@@ -1,13 +1,12 @@
 package it.gabrieletondi.pokemons.e2e
 
 import com.github.kittinunf.fuel.core.FuelManager
+import com.github.kittinunf.fuel.core.HttpException
 import com.github.kittinunf.fuel.jackson.responseObject
 import org.junit.Ignore
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
-import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
 
 @Tag("e2e")
 class E2ETest {
@@ -29,7 +28,7 @@ class E2ETest {
 
     @Test
     internal fun `known pokemon`() {
-        val request = fuel.get("$baseUrl/pokemon/charizard");
+        val request = fuel.get("$baseUrl/pokemon/charizard")
 
         val (_, response, result) = request.responseObject<PokemonResponse>()
 
@@ -42,6 +41,20 @@ class E2ETest {
                             result.component1())
                 },
                 failure = { fail(it.exception) }
+        )
+    }
+
+    @Test
+    internal fun `unknown pokemon`() {
+        val request = fuel.get("$baseUrl/pokemon/donald")
+
+        val (_, _, result) = request.responseObject<PokemonResponse>()
+
+        result.fold(
+            success = { fail("Expected 404 error") },
+            failure = {
+                assertEquals(404, it.response.statusCode)
+            }
         )
     }
 

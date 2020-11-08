@@ -1,15 +1,14 @@
 package it.gabrieletondi.pokemons.http
 
 import com.google.gson.Gson
-import it.gabrieletondi.pokemons.domain.Description
-import it.gabrieletondi.pokemons.domain.Name
-import it.gabrieletondi.pokemons.domain.Pokemon
-import it.gabrieletondi.pokemons.domain.ShakespeareDescription
+import it.gabrieletondi.pokemons.domain.*
 import it.gabrieletondi.pokemons.domain.usecase.ShakespearePokemonDescriptionUseCase
 import it.gabrieletondi.pokemons.infrastracture.InMemoryPokemonCatalog
 import it.gabrieletondi.pokemons.infrastracture.InMemoryShakespeareTranslator
 import spark.Response
+import spark.Spark.exception
 import spark.kotlin.ignite
+
 
 fun main() {
     val catalog = InMemoryPokemonCatalog(
@@ -42,6 +41,10 @@ fun main() {
         val shakespearePokemon = poeticPokemonDescriptionUseCase.execute(request.params(":name"))
         val pokemonResponse = PokemonResponse.from(shakespearePokemon)
         jsonResponse(response, pokemonResponse)
+    }
+
+    exception(UnknownPokemon::class.java) { _, _, response ->
+        response.status(404)
     }
 }
 

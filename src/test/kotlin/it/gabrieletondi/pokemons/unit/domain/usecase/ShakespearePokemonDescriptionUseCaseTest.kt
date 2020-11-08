@@ -6,6 +6,7 @@ import it.gabrieletondi.pokemons.infrastracture.InMemoryShakespeareTranslator
 import it.gabrieletondi.pokemons.infrastracture.InMemoryPokemonCatalog
 import org.junit.Assert.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 internal class ShakespearePokemonDescriptionUseCaseTest {
     private val aPokemonName = Name("a pokemon")
@@ -34,5 +35,14 @@ internal class ShakespearePokemonDescriptionUseCaseTest {
             ShakespearePokemon(aPokemonName, aShakespeareDescription),
             shakespearePokemon
         )
+    }
+
+    @Test
+    internal fun `unknown pokemon`() {
+        val exception = assertThrows<UnknownPokemon> {
+            useCase.execute("unknown")
+        }
+
+        assertEquals("Unknown pokemon with name unknown", exception.message)
     }
 }
