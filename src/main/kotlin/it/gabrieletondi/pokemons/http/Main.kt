@@ -1,6 +1,7 @@
 package it.gabrieletondi.pokemons.http
 
 import com.google.gson.Gson
+import com.natpryce.konfig.*
 import it.gabrieletondi.pokemons.domain.TranslationException
 import it.gabrieletondi.pokemons.domain.UnknownPokemon
 import it.gabrieletondi.pokemons.domain.usecase.ShakespearePokemonDescriptionUseCase
@@ -12,8 +13,11 @@ import spark.Spark.exception
 import spark.kotlin.ignite
 
 fun main() {
-    val catalog = ApiPokemonCatalog("https://pokeapi.co")
-    val translator = ApiShakespeareTranslator("https://api.funtranslations.com")
+    val config = EnvironmentVariables() overriding
+            ConfigurationProperties.fromResource("defaults.properties")
+
+    val catalog = ApiPokemonCatalog(config[Key("POKEMON_API_BASE_URL", stringType)])
+    val translator = ApiShakespeareTranslator(config[Key("SHAKESPEARE_API_BASE_URL", stringType)])
 
     val poeticPokemonDescriptionUseCase = ShakespearePokemonDescriptionUseCase(catalog, translator)
 
