@@ -32,7 +32,7 @@ fun main() {
 
     exception(TranslationException::class.java) { _, _, response ->
         response.body("503 Translation Service Temporarily Unavailable")
-        response.status(503)g
+        response.status(503)
     }
 
     exception(UnknownPokemon::class.java) { _, _, response ->
