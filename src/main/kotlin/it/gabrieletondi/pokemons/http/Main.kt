@@ -14,7 +14,6 @@ import spark.kotlin.ignite
 
 fun main() {
     val catalog = ApiPokemonCatalog("https://pokeapi.co")
-
     val translator = ApiShakespeareTranslator("https://api.funtranslations.com")
 
     val poeticPokemonDescriptionUseCase = ShakespearePokemonDescriptionUseCase(catalog, translator)
@@ -32,12 +31,12 @@ fun main() {
     }
 
     exception(TranslationException::class.java) { _, _, response ->
-        response.body("503 Service Temporarily Unavailable")
-        response.status(503)
+        response.body("503 Translation Service Temporarily Unavailable")
+        response.status(503)g
     }
 
     exception(UnknownPokemon::class.java) { _, _, response ->
-        response.body("404 Not Found")
+        response.body("404 Pokemon Not Found")
         response.status(404)
     }
 }
