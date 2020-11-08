@@ -3,6 +3,7 @@ package it.gabrieletondi.pokemons.http
 import com.google.gson.Gson
 import it.gabrieletondi.pokemons.domain.*
 import it.gabrieletondi.pokemons.domain.usecase.ShakespearePokemonDescriptionUseCase
+import it.gabrieletondi.pokemons.infrastracture.ApiPokemonCatalog
 import it.gabrieletondi.pokemons.infrastracture.InMemoryPokemonCatalog
 import it.gabrieletondi.pokemons.infrastracture.InMemoryShakespeareTranslator
 import spark.Response
@@ -11,20 +12,13 @@ import spark.kotlin.ignite
 
 
 fun main() {
-    val catalog = InMemoryPokemonCatalog(
-        listOf(
-            Pokemon(
-                Name("charizard"),
-                Description("CHARIZARD flies around the sky in search of powerful opponents. It breathes fire of such great heat that it melts anything. However, it never turns its fiery breath on any opponent weaker than itself.")
-            )
-        )
-    )
+    val catalog = ApiPokemonCatalog("https://pokeapi.co")
 
     val translator = InMemoryShakespeareTranslator(
         mapOf(
             Pair(
-                Description("CHARIZARD flies around the sky in search of powerful opponents. It breathes fire of such great heat that it melts anything. However, it never turns its fiery breath on any opponent weaker than itself."),
-                ShakespeareDescription("Charizard flies 'round the sky in search of powerful opponents. 't breathes fire of such most wondrous heat yond 't melts aught. However, 't nev'r turns its fiery breath on any opponent weaker than itself.")
+                Description("The flame inside its body burns hotter than 3,600 degrees Fahrenheit. When Charizard roars, that temperature climbs even higher."),
+                ShakespeareDescription("The flame inside its corse burns hotter than 3,600 degrees fahrenheit. At which hour charizard roars, yond temperature climbs coequal higher.")
             )
         )
     )
