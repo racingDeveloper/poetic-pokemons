@@ -23,10 +23,7 @@ class ApiPokemonCatalog(baseUrl: String) : PokemonCatalog {
                     throw fuelError!!.exception
                 }
 
-                val description = pokemonAPIResponse
-                    .flavor_text_entries
-                    .last { it.language.name == "en" }
-                    .flavor_text
+                val description = englishFlavorTextForLatestGameVersion(pokemonAPIResponse)
 
                 Pokemon(name, Description(removeFormatting(description)))
             },
@@ -40,6 +37,13 @@ class ApiPokemonCatalog(baseUrl: String) : PokemonCatalog {
         )
 
 
+    }
+
+    private fun englishFlavorTextForLatestGameVersion(pokemonAPIResponse: PokemonAPIResponse): String {
+        return pokemonAPIResponse
+            .flavor_text_entries
+            .last { it.language.name == "en" }
+            .flavor_text
     }
 
     private fun removeFormatting(rawDescription: String): String {
