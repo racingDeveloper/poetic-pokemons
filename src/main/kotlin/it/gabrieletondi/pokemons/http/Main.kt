@@ -1,16 +1,15 @@
 package it.gabrieletondi.pokemons.http
 
 import com.google.gson.Gson
-import it.gabrieletondi.pokemons.domain.*
+import it.gabrieletondi.pokemons.domain.TranslationException
+import it.gabrieletondi.pokemons.domain.UnknownPokemon
 import it.gabrieletondi.pokemons.domain.usecase.ShakespearePokemonDescriptionUseCase
 import it.gabrieletondi.pokemons.infrastracture.ApiPokemonCatalog
 import it.gabrieletondi.pokemons.infrastracture.ApiShakespeareTranslator
-import it.gabrieletondi.pokemons.infrastracture.InMemoryPokemonCatalog
-import it.gabrieletondi.pokemons.infrastracture.InMemoryShakespeareTranslator
+import org.slf4j.LoggerFactory
 import spark.Response
 import spark.Spark.exception
 import spark.kotlin.ignite
-
 
 fun main() {
     val catalog = ApiPokemonCatalog("https://pokeapi.co")
@@ -19,6 +18,16 @@ fun main() {
     val poeticPokemonDescriptionUseCase = ShakespearePokemonDescriptionUseCase(catalog, translator)
 
     val http = ignite()
+
+    val logger = LoggerFactory.getLogger("web")
+
+    http.before {
+        logger.info("Received: ${this.request.requestMethod()} on: ${this.request.pathInfo()}")
+    }
+
+    http.finally {
+        logger.info("Answering with status: ${this.response.status()} body: ${this.response.body()}")
+    }
 
     http.get("/ping") {
         "pong"
