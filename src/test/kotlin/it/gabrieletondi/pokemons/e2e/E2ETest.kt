@@ -37,7 +37,7 @@ class E2ETest {
                     assertEquals(200, response.statusCode)
                     assertEquals(PokemonResponse(
                             "charizard",
-                            "The flame inside its corse burns hotter than 3,600 degrees fahrenheit. At which hour charizard roars,  yond temperature climbs coequal higher.g"),
+                            "The flame inside its corse burns hotter than 3,600 degrees fahrenheit. At which hour charizard roars,  yond temperature climbs coequal higher."),
                             result.component1())
                 },
                 failure = { fail(it.exception) }
