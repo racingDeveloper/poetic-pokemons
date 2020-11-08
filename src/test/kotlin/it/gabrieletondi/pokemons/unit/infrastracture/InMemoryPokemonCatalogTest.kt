@@ -5,7 +5,7 @@ import it.gabrieletondi.pokemons.domain.Name
 import it.gabrieletondi.pokemons.domain.Pokemon
 import it.gabrieletondi.pokemons.domain.PokemonCatalog
 import it.gabrieletondi.pokemons.infrastracture.InMemoryPokemonCatalog
-import it.gabrieletondi.pokemons.unit.domain.usecase.domain.PokemonCatalogContractTest
+import it.gabrieletondi.pokemons.unit.domain.PokemonCatalogContractTest
 
 class InMemoryPokemonCatalogTest : PokemonCatalogContractTest() {
     private val knownPokemon = Pokemon(Name("a pokemon"), Description("the description"))

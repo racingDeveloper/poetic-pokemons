@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import it.gabrieletondi.pokemons.domain.*
 import it.gabrieletondi.pokemons.domain.usecase.ShakespearePokemonDescriptionUseCase
 import it.gabrieletondi.pokemons.infrastracture.ApiPokemonCatalog
+import it.gabrieletondi.pokemons.infrastracture.ApiShakespeareTranslator
 import it.gabrieletondi.pokemons.infrastracture.InMemoryPokemonCatalog
 import it.gabrieletondi.pokemons.infrastracture.InMemoryShakespeareTranslator
 import spark.Response
@@ -14,14 +15,7 @@ import spark.kotlin.ignite
 fun main() {
     val catalog = ApiPokemonCatalog("https://pokeapi.co")
 
-    val translator = InMemoryShakespeareTranslator(
-        mapOf(
-            Pair(
-                Description("The flame inside its body burns hotter than 3,600 degrees Fahrenheit. When Charizard roars, that temperature climbs even higher."),
-                ShakespeareDescription("The flame inside its corse burns hotter than 3,600 degrees fahrenheit. At which hour charizard roars, yond temperature climbs coequal higher.")
-            )
-        )
-    )
+    val translator = ApiShakespeareTranslator("https://api.funtranslations.com")
 
     val poeticPokemonDescriptionUseCase = ShakespearePokemonDescriptionUseCase(catalog, translator)
 

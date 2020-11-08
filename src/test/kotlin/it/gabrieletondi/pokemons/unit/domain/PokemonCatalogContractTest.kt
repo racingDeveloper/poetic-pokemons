@@ -1,4 +1,4 @@
-package it.gabrieletondi.pokemons.unit.domain.usecase.domain
+package it.gabrieletondi.pokemons.unit.domain
 
 import it.gabrieletondi.pokemons.domain.*
 import org.junit.jupiter.api.Assertions.assertEquals

@@ -5,7 +5,7 @@ import it.gabrieletondi.pokemons.domain.Name
 import it.gabrieletondi.pokemons.domain.Pokemon
 import it.gabrieletondi.pokemons.domain.PokemonCatalog
 import it.gabrieletondi.pokemons.infrastracture.ApiPokemonCatalog
-import it.gabrieletondi.pokemons.unit.domain.usecase.domain.PokemonCatalogContractTest
+import it.gabrieletondi.pokemons.unit.domain.PokemonCatalogContractTest
 
 class ApiPokemonCatalogTest : PokemonCatalogContractTest() {
     override fun anUnknownPokemonName(): Name = Name("donald")

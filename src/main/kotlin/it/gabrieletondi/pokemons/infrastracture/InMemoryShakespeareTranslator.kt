@@ -1,11 +1,11 @@
 package it.gabrieletondi.pokemons.infrastracture
 
-import it.gabrieletondi.pokemons.domain.Description
-import it.gabrieletondi.pokemons.domain.ShakespeareDescription
-import it.gabrieletondi.pokemons.domain.ShakespeareTranslator
+import it.gabrieletondi.pokemons.domain.*
 
 class InMemoryShakespeareTranslator(private val translations: Map<Description, ShakespeareDescription>) : ShakespeareTranslator {
     override fun translate(description: Description): ShakespeareDescription {
-        return translations.getOrDefault(description, ShakespeareDescription("cannot translate description"))
+        return translations[description] ?: throw TranslationException(UnknownInMemoryTranslation(description))
     }
+
+    class UnknownInMemoryTranslation(description: Description): Exception("Unknown in memory translation for ${description.value}")
 }
