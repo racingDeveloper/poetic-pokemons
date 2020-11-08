@@ -31,7 +31,13 @@ fun main() {
         jsonResponse(response, pokemonResponse)
     }
 
+    exception(TranslationException::class.java) { _, _, response ->
+        response.body("503 Service Temporarily Unavailable")
+        response.status(503)
+    }
+
     exception(UnknownPokemon::class.java) { _, _, response ->
+        response.body("404 Not Found")
         response.status(404)
     }
 }

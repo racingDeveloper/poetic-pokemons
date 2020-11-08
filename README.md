@@ -5,6 +5,9 @@ You can start the application using the provided dockerfile and docker-compose f
 
 The application will be available at ```http://127.0.0.1:4567```
 
+## Rebuilding and re-running the application
+This can be done with command: ```make recreate```
+
 ## Stopping the application
 You can stop the HTTP application with ```make halt```
 
@@ -14,5 +17,10 @@ Test can be run with ```make test```
 ## Running e2e tests
 First you need to run the application, then ```make test-e2e```
 
-**Note:**: this is very sub-optimal, in a real project with CI/CD pipeline the application would be already started and
+**Note**: this is very sub-optimal, in a real project with CI/CD pipeline the application would be already started and
 the url would be injected from env.
+
+## Assumptions
+- because no specific pokemon game version was required, I am going to use the description from the latest version available in english
+- the pokemon API and Shakespeare translations API are external services, for this reason the adapter implementations (ApiPokemonCatalog and ApiShakespeareTranslator) are tested in integration. 
+If those were internal services using consumer driven contract tests would have been a better solution.
