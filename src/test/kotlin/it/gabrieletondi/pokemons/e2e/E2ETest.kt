@@ -28,7 +28,6 @@ class E2ETest {
     }
 
     @Test
-    @Disabled("This will work only after implementation")
     internal fun `known pokemon`() {
         val request = fuel.get("$baseUrl/pokemon/charizard");
 

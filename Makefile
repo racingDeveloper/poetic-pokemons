@@ -6,4 +6,6 @@ halt:
 test:
 	docker-compose run --rm test ./gradlew clean build test
 test-e2e:
-	docker-compose run --rm test ./gradlew clean build e2eTest
+	docker-compose run --rm test ./gradlew clean build e2eTest --info
+recreate:
+	docker-compose up -d --force-recreate --build --remove-orphans
